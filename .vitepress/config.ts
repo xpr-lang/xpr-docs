@@ -3,6 +3,10 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: 'XPR Language',
   description: 'Cross-language expression language for data pipelines',
+  ignoreDeadLinks: [
+    /\/LICENSE$/,
+    /localhost/,
+  ],
   themeConfig: {
     nav: [
       { text: 'Guide', link: '/guide/' },
