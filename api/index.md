@@ -24,4 +24,4 @@ The method names follow each language's conventions (`evaluate` / `Evaluate`, `a
 
 ## Conformance
 
-All runtimes pass the same [conformance test suite](https://github.com/xpr-lang/xpr/tree/main/conformance) — 156 test cases covering literals, arithmetic, comparison, logic, collections, strings, functions, access patterns, pipe operator, and real-world examples.
+All runtimes pass the same [conformance test suite](https://github.com/xpr-lang/xpr/tree/main/conformance) — covering literals, arithmetic, comparison, logic, collections, strings, functions, access patterns, pipe operator, let bindings, spread operator, and all v0.2 methods.

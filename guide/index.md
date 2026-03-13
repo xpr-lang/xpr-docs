@@ -135,6 +135,50 @@ XPR is designed to be safe by default:
 - **Depth limit** — max AST depth of 50 prevents stack overflow
 - **Timeout** — expressions are killed after 100ms by default
 
+## v0.2 Features
+
+### Let Bindings
+
+Chain multiple bindings with semicolons — the final expression is the result:
+
+```
+let items = [1,2,3,4,5]; let big = items.filter(x => x > 2); big.map(x => x * 10)
+```
+→ `[30, 40, 50]`
+
+```
+let f = (x) => x * 2; f(5)
+```
+→ `10`
+
+### Spread Operator
+
+Merge arrays and objects:
+
+```
+[...[1,2], ...[3,4]]
+```
+→ `[1, 2, 3, 4]`
+
+```
+{...defaults, ...overrides}
+```
+→ merged object (overrides wins on key collision)
+
+### New Methods
+
+```
+range(5)                          // → [0,1,2,3,4]
+[1,2,3,4,5].chunk(2)              // → [[1,2],[3,4],[5]]
+[1,2,1,3].unique()                // → [1,2,3]
+["a","b","c"].zip([1,2,3])        // → [["a",1],["b",2],["c",3]]
+items.groupBy(x => x.type)        // → {type: [items...]}
+{"b":2,"a":1}.entries()           // → [["a",1],["b",2]]
+{"a":1}.has("a")                  // → true
+"hello".charAt(1)                 // → "e"
+"42".padStart(5, "0")             // → "00042"
+```
+
 ## Next Steps
 
 - [Language Specification](/spec/) — full syntax reference
