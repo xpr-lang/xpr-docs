@@ -1,6 +1,6 @@
 # Python Runtime
 
-Package: [`xpr-lang`](https://pypi.org/project/xpr-lang/) · [GitHub](https://github.com/xpr-lang/xpr-python) · **v0.2.0**
+Package: [`xpr-lang`](https://pypi.org/project/xpr-lang/) · [GitHub](https://github.com/xpr-lang/xpr-python) · **v0.3.0**
 
 ## Install
 

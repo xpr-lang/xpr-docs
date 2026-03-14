@@ -1,6 +1,6 @@
 # Go Runtime
 
-Module: [`github.com/xpr-lang/xpr-go`](https://pkg.go.dev/github.com/xpr-lang/xpr-go) · [GitHub](https://github.com/xpr-lang/xpr-go) · **v0.2.0**
+Module: [`github.com/xpr-lang/xpr-go`](https://pkg.go.dev/github.com/xpr-lang/xpr-go) · [GitHub](https://github.com/xpr-lang/xpr-go) · **v0.3.0**
 
 ## Install
 

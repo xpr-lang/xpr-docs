@@ -1,6 +1,6 @@
 # JavaScript Runtime
 
-Package: [`@xpr-lang/xpr`](https://www.npmjs.com/package/@xpr-lang/xpr) · [GitHub](https://github.com/xpr-lang/xpr-js) · **v0.2.0**
+Package: [`@xpr-lang/xpr`](https://www.npmjs.com/package/@xpr-lang/xpr) · [GitHub](https://github.com/xpr-lang/xpr-js) · **v0.3.0**
 
 ## Install
 
