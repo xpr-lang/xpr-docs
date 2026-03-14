@@ -1,6 +1,6 @@
 # Language Specification
 
-> This page covers XPR v0.2
+> This page covers XPR v0.3
 
 XPR is a sandboxed expression language with JS/Python-familiar syntax, designed for data pipeline transforms.
 
@@ -241,6 +241,75 @@ count ?? 0                 // 0 only if count is null
 - Expression timeout: 100ms (configurable)
 - Max AST depth: 50
 
+## Date/Time Functions (v0.3)
+
+Dates are **epoch milliseconds** (number type). All operations are UTC. No separate `date` type.
+
+| Function | Signature | Returns |
+|----------|-----------|---------|
+| `now()` | `() → number` | Current UTC timestamp (epoch ms) |
+| `parseDate(str, format?)` | `(string, string?) → number` | Epoch ms. Default: ISO 8601. Custom: ICU tokens. |
+| `formatDate(date, format)` | `(number, string) → string` | Formatted date string |
+| `year(date)` | `(number) → number` | Year (e.g., 2024) |
+| `month(date)` | `(number) → number` | Month 1–12 |
+| `day(date)` | `(number) → number` | Day 1–31 |
+| `hour(date)` | `(number) → number` | Hour 0–23 |
+| `minute(date)` | `(number) → number` | Minute 0–59 |
+| `second(date)` | `(number) → number` | Second 0–59 |
+| `millisecond(date)` | `(number) → number` | Millisecond 0–999 |
+| `dateAdd(date, amount, unit)` | `(number, number, string) → number` | Add/subtract time |
+| `dateDiff(date1, date2, unit)` | `(number, number, string) → number` | Signed difference |
+
+**Format tokens**: `yyyy`, `MM`, `dd`, `HH`, `mm`, `ss`, `SSS`
+
+**Units**: `"years"`, `"months"`, `"days"`, `"hours"`, `"minutes"`, `"seconds"`, `"milliseconds"`
+
+```javascript
+parseDate("2024-01-15T12:00:00Z")                    // 1705320000000
+formatDate(0, "yyyy-MM-dd")                           // "1970-01-01"
+year(parseDate("2024-06-15T10:30:00Z"))               // 2024
+dateAdd(parseDate("2024-01-15T00:00:00Z"), 7, "days") // epoch ms for 2024-01-22
+dateDiff(parseDate("2024-01-01T00:00:00Z"), parseDate("2024-01-08T00:00:00Z"), "days")  // 7
+```
+
+## Regex Functions (v0.3)
+
+Function-based regex using **RE2 flavor**. No literal syntax. Inline flags via `(?i)` etc.
+
+| Function | Signature | Returns |
+|----------|-----------|---------|
+| `matches(str, pattern)` | `(string, string) → boolean` | True if pattern found in string |
+| `match(str, pattern)` | `(string, string) → string \| null` | First match or null |
+| `matchAll(str, pattern)` | `(string, string) → array` | All matches as strings |
+| `replacePattern(str, pattern, replacement)` | `(string, string, string) → string` | Replace all matches |
+
+```javascript
+matches("hello 42", "\\d+")                                              // true
+matches("Hello", "(?i)hello")                                            // true
+match("order-123", "\\d+")                                               // "123"
+matchAll("a1b2c3", "\\d+")                                               // ["1", "2", "3"]
+replacePattern("2024-01-15", "(\\d{4})-(\\d{2})-(\\d{2})", "$3/$2/$1")  // "15/01/2024"
+```
+
+## Negative Array Indexing (v0.3)
+
+Arrays support negative indexing: `items[-1]` returns the last element.
+
+```javascript
+[1, 2, 3][-1]   // 3 (last element)
+[1, 2, 3][-2]   // 2 (second-to-last)
+[][- 1]          // null (out of bounds)
+```
+
+## Spread in Function Calls (v0.3)
+
+The spread operator works in function call arguments:
+
+```javascript
+max(...[1, 5, 3, 2, 4])     // 5
+fn(a, ...rest)               // mix regular and spread args
+```
+
 ## What's Not Supported
 
 - `while` loops, `class`, I/O, imports
@@ -248,7 +317,6 @@ count ?? 0                 // 0 only if count is null
 - Destructuring
 - Pattern matching
 - Async expressions
-- Spread in function call arguments (`fn(...args)`)
 
 ## Conformance Tests
 
